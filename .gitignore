@@ -1,0 +1,4 @@
+db.slite3
+.env
+env/
+*.pyc
