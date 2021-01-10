@@ -32,6 +32,12 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 # Application definition
+# Application definition
+DRF_AUTH_APPS = [
+    'rest_framework.authtoken',
+    'rest_auth',
+    'rest_auth.registration',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -40,7 +46,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+    ####
+    'django.contrib.sites',
+    'django_extensions',
+    'rest_framework',
+    'crispy_forms',
+    'core',  # All codes and functionalities which will be share among apps
+    # 'users',  # Models rest in core app
+] + DRF_AUTH_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,7 +70,7 @@ ROOT_URLCONF = 'aeronautica.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,8 +138,48 @@ USE_L10N = True
 USE_TZ = True
 
 
+AUTH_USER_MODEL = 'core.User'
+
+LOGIN_URL = 'web-login'
+LOGIN_REDIRECT_URL = 'web-user-profile'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+# django-allauth settings
+# https://django-allauth.readthedocs.io/en/latest/
+ACCOUNT_EMAIL_VERIFICATION = None
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+# REST-AUTH configurations
+REST_AUTH_SERIALIZERS = {'LOGIN_SERIALIZER': 'users.api.serializers.LoginSerializer'}
+
+SITE_ID = 1
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+### EMAIL SETUP
+EMAIL_DOMAIN_BLACKLIST = ['hotmail.com', 'yahoo.com',
+                          'gmail.com', 'yandex.com', 'mail.ru']
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER_AERO')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD_AERO') 
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'info@aeronautica.services'
