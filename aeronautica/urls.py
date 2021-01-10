@@ -65,4 +65,6 @@ web_user_urls = [
 urlpatterns = [
     path('', core_views.home_view, name='index'),
     path('admin/', admin.site.urls),
+    path('api/user/', include('users.api.urls')),
+    path('api-auth/', include('rest_framework.urls')),  # For browsable api page
 ] + web_user_urls 
