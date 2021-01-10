@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'crispy_forms',
     'core',  # All codes and functionalities which will be share among apps
-    # 'users',  # Models rest in core app
+    'users',  # Models rest in core app
 ] + DRF_AUTH_APPS
 
 MIDDLEWARE = [

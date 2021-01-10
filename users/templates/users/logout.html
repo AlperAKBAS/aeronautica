@@ -1,0 +1,13 @@
+{% extends "users/base_auth.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="content-section">
+       <h2> You have been logged out succesfully </h2>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                <a href="{% url 'web-login' %}">Click to login.</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}

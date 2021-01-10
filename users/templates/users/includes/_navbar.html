@@ -1,0 +1,33 @@
+<header class="site-header">
+    <nav class="navbar  navbar-expand-md navbar-dark bg-steel fixed-top">
+      <div class="container ">
+        <a class="navbar-brand mr-4" href="/">AeroNautica Apps</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="#">Home</a>
+              <a class="nav-item nav-link" href="#">About</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+
+            {% if user.is_superuser %}
+              <a class="nav-item nav-link" href="{% url 'admin:index' %}">Admin</a>
+            {% endif %}
+
+            {% if  user.is_authenticated %}
+              <a class="nav-item nav-link" href="{% url 'web-user-profile' %}"> {{ request.user.email }} </a>
+              <a class="nav-item nav-link" href="#">API's</a>
+              <a class="nav-item nav-link" href="{% url 'web-logout' %}">Logout</a>
+            {% else %}
+              <a class="nav-item nav-link" href="{% url 'web-login' %}">Login</a>
+              <a class="nav-item nav-link" href="{% url 'web-register' %}">Register</a>
+            {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
