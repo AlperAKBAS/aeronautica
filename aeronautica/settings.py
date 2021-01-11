@@ -177,7 +177,7 @@ REST_FRAMEWORK = {
 
 ### EMAIL SETUP
 EMAIL_DOMAIN_BLACKLIST = ['hotmail.com', 'yahoo.com',
-                          'gmail.com', 'yandex.com', 'mail.ru']
+                          'yandex.com', 'mail.ru']
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
